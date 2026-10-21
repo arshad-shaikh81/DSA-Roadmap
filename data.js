@@ -207,3 +207,22 @@ const roadmap = [
         ],
     },
 ];
+// Icons (Font Awesome) for each topic id
+const topicIcons = {
+    1: "fa-code",
+    2: "fa-table-cells",
+    3: "fa-font",
+    4: "fa-arrow-down-wide-short",
+    5: "fa-hashtag",
+    6: "fa-link",
+    7: "fa-layer-group",
+    8: "fa-rotate",
+    9: "fa-sitemap",
+    10: "fa-mountain",
+    11: "fa-diagram-project",
+    12: "fa-brain",
+};
+
+roadmap.forEach((t) => {
+    t.icon = topicIcons[t.id] || "fa-code";
+});

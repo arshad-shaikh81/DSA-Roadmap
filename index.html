@@ -3,81 +3,149 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DSA Roadmap</title>
+    <title>🚀 DSA Roadmap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+<!-- glass filters are generated here by glass.js -->
+<svg id="glassDefs" width="0" height="0" style="position:absolute" aria-hidden="true"></svg>
+
+<!-- LIVE PARTICLE BACKGROUND -->
+<canvas id="bgCanvas"></canvas>
+
 <!-- NAVBAR -->
-<header class="navbar">
-    <div class="logo">🚀 DSA Roadmap</div>
-    <nav>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#progress">Progress</a>
-    </nav>
-    <button id="themeToggle" class="btn-outline">🌙 Theme</button>
+<header class="nav-wrap">
+    <div class="avatar glass">SA</div>
+
+    <div class="nav-pill">
+        <span class="brand">DSA Roadmap</span>
+
+        <nav class="nav-links" id="navLinks">
+            <button class="nav-link active" data-view="explore">Explore</button>
+            <button class="nav-link" data-view="dashboard">Dashboard</button>
+            <button class="nav-link" data-view="saved">Saved Paths</button>
+        </nav>
+
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="searchInput" type="text" placeholder="Search DSA topics..." />
+        </div>
+
+        <button class="btn-ghost glass">Log In</button>
+        <button class="btn-primary glass">Sign Up</button>
+    </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-    <p class="tag">Step-by-step learning path</p>
-    <h1>Master Data Structures &amp; Algorithms</h1>
-    <p class="sub">
-        Follow a structured roadmap, track your progress and crack your
-        coding interviews.
-    </p>
-    <a href="#roadmap" class="btn">Start Learning</a>
-</section>
+<main>
 
-<!-- PROGRESS -->
-<section id="progress" class="section">
-    <h2>Your Progress</h2>
-    <div class="stats">
-        <div class="stat-card">
-            <h3 id="totalTopics">0</h3>
-            <p>Total Topics</p>
+    <!-- HERO (only on Explore) -->
+    <section class="hero" id="hero">
+        <span class="hero-badge glass">AI-Powered DSA Trajectories</span>
+        <h1>
+            Navigate Your DSA Journey<br />
+            <span class="gradient-text">With Absolute Precision</span>
+        </h1>
+        <p>
+            Unlock interactive multi-stage learning maps, from arrays to dynamic
+            programming, and track every step of your progress.
+        </p>
+    </section>
+
+    <!-- VIEW: EXPLORE -->
+    <section class="view" id="view-explore">
+        <div class="section-head">
+            <h2><i class="fa-solid fa-layer-group"></i> Available DSA Paths</h2>
+            <span class="count-pill glass" id="trackCount">0 Tracks Available</span>
         </div>
-        <div class="stat-card">
-            <h3 id="doneTopics">0</h3>
-            <p>Completed</p>
+
+        <div class="filters" id="filters">
+            <button class="filter glass active" data-level="All">All</button>
+            <button class="filter glass" data-level="Beginner">Beginner</button>
+            <button class="filter glass" data-level="Intermediate">Intermediate</button>
+            <button class="filter glass" data-level="Advanced">Advanced</button>
         </div>
-        <div class="stat-card">
-            <h3 id="percent">0%</h3>
-            <p>Completion</p>
+
+        <div id="roadmapGrid" class="grid"></div>
+    </section>
+
+    <!-- VIEW: DASHBOARD -->
+    <section class="view hidden" id="view-dashboard">
+        <div class="page-head">
+            <h1>DSA Learning <span class="gradient-text">Dashboard</span></h1>
+            <p>Track every topic you complete and see how close you are to mastering DSA.</p>
         </div>
-    </div>
-    <div class="progress-bar">
-        <div id="progressFill" class="progress-fill"></div>
-    </div>
-</section>
 
-<!-- ROADMAP -->
-<section id="roadmap" class="section">
-    <h2>Roadmap</h2>
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-circle-nodes"></i></div>
+                <div><p>TOTAL SKILL NODES</p><h3 id="totalTopics">0</h3></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-check"></i></div>
+                <div><p>COMPLETED NODES</p><h3 id="doneTopics">0</h3></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-hourglass-half"></i></div>
+                <div><p>PENDING REVIEW</p><h3 id="pendingTopics">0</h3></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon grad"><i class="fa-solid fa-bolt"></i></div>
+                <div><p>TOTAL COMPLETION</p><h3 id="percent">0%</h3></div>
+            </div>
+        </div>
 
-    <div class="filters" id="filters">
-        <button class="filter active" data-level="All">All</button>
-        <button class="filter" data-level="Beginner">Beginner</button>
-        <button class="filter" data-level="Intermediate">Intermediate</button>
-        <button class="filter" data-level="Advanced">Advanced</button>
-    </div>
+        <div class="panel">
+            <div class="panel-head">
+                <i class="fa-solid fa-book-open-reader"></i> Active DSA Progress
+            </div>
+            <div id="activeProgress"></div>
+        </div>
+    </section>
 
-    <!-- cards are generated by script.js -->
-    <div id="roadmapGrid" class="grid"></div>
-</section>
+    <!-- VIEW: SAVED -->
+    <section class="view hidden" id="view-saved">
+        <div class="page-head">
+            <h1>Bookmarked <span class="gradient-text">Paths</span></h1>
+            <p>Your saved DSA topics, pinned here for quick access.</p>
+        </div>
+        <div id="savedGrid" class="grid"></div>
+    </section>
 
-<!-- MODAL (topic details) -->
+</main>
+
+<!-- TOPIC MODAL -->
 <div id="modal" class="modal hidden">
     <div class="modal-content">
         <button id="closeModal" class="close">&times;</button>
         <h2 id="modalTitle"></h2>
         <p id="modalDesc"></p>
 
-        <h4>Subtopics</h4>
+        <h4><i class="fa-solid fa-list-check"></i> Subtopics</h4>
         <ul id="modalSubtopics"></ul>
 
-        <h4>Resources</h4>
+        <h4><i class="fa-solid fa-link"></i> Resources</h4>
         <ul id="modalLinks"></ul>
+    </div>
+</div>
+
+<!-- FLOATING CHATBOT -->
+<button id="chatBtn" class="chat-btn glass" title="DSA Assistant">
+    <i class="fa-solid fa-robot"></i>
+</button>
+
+<div id="chatPanel" class="chat-panel hidden">
+    <div class="chat-head">
+        <span>🤖 DSA Assistant</span>
+        <button id="chatClose" class="close-sm">&times;</button>
+    </div>
+    <div class="chat-body">
+        <p>Hi! 👋 Tell me your level and I'll suggest where to start.</p>
+        <button class="chat-opt glass" data-level="Beginner">I'm a Beginner</button>
+        <button class="chat-opt glass" data-level="Intermediate">I know the basics</button>
+        <button class="chat-opt glass" data-level="Advanced">I want advanced topics</button>
+        <p id="chatReply" class="chat-reply"></p>
     </div>
 </div>
 
@@ -85,8 +153,9 @@
     © 2026 DSA Roadmap • Built with HTML, CSS &amp; JavaScript
 </footer>
 
-<!-- data first, then logic -->
 <script src="data.js"></script>
+<script src="particles.js"></script>
 <script src="script.js"></script>
+<script src="glass.js"></script>
 </body>
 </html>
