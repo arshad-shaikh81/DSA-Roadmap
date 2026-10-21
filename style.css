@@ -1,17 +1,19 @@
 /* =====================================================
-   DARK BLUE/PURPLE THEME  +  REAL LIQUID GLASS BUTTONS
+   PATHFINDER THEME
+   near-black background, violet solid buttons,
+   dark outlined pills, no glass, no grid
    ===================================================== */
 :root {
-    --bg: #07060f;
-    --surface: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 255, 255, 0.1);
-    --text: #f3f2fb;
-    --muted: #9a97b3;
+    --bg: #06050f;
+    --surface: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.09);
+    --text: #f4f3fb;
+    --muted: #9a97b0;
     --primary: #8b5cf6;
-    --primary-2: #6366f1;
     --accent: #a78bfa;
     --success: #34d399;
-    --particle: 167, 139, 250;
+    --btn-grad: linear-gradient(135deg, #a47dfa, #7c6cf6);
+    --btn-glow: 0 6px 20px rgba(139, 92, 246, 0.35);
     --radius: 22px;
 }
 
@@ -20,7 +22,7 @@
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
-    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
@@ -33,29 +35,14 @@ button { font-family: inherit; }
 .hidden { display: none !important; }
 
 /* ---------- BACKGROUND ---------- */
-/* soft glow */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -3;
     background:
-            radial-gradient(900px 600px at 12% 8%, rgba(99, 102, 241, 0.30), transparent 60%),
-            radial-gradient(800px 600px at 88% 20%, rgba(139, 92, 246, 0.24), transparent 60%),
-            radial-gradient(900px 600px at 50% 105%, rgba(59, 130, 246, 0.22), transparent 60%);
-    pointer-events: none;
-}
-
-/* faint blueprint grid: gives the glass something to bend */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background-image:
-            linear-gradient(rgba(170, 180, 255, 0.09) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(170, 180, 255, 0.09) 1px, transparent 1px);
-    background-size: 34px 34px;
+            radial-gradient(900px 500px at 50% -5%, rgba(139, 92, 246, 0.12), transparent 60%),
+            radial-gradient(700px 500px at 90% 95%, rgba(59, 130, 246, 0.08), transparent 60%);
     pointer-events: none;
 }
 
@@ -69,28 +56,66 @@ body::after {
 }
 
 /* =====================================================
-   REGULAR LIQUID GLASS  (buttons)
-   Look: clear body + bright thin rim + lens refraction
+   BUTTONS
    ===================================================== */
-.glass,
-.nav-link.active {
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    box-shadow:
-            inset 0 1.5px 1px rgba(255, 255, 255, 0.55),
-            inset 0 -1.5px 1px rgba(255, 255, 255, 0.22),
-            inset 1.5px 0 1px rgba(255, 255, 255, 0.12),
-            inset -1.5px 0 1px rgba(255, 255, 255, 0.12),
-            0 8px 22px rgba(0, 0, 0, 0.28);
-    -webkit-backdrop-filter: blur(6px) saturate(160%);
-    backdrop-filter: blur(6px) saturate(160%);
+
+/* solid violet = main / selected */
+.btn-primary {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 10px;
+    background: var(--btn-grad);
+    color: #fff;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Chrome / Edge: real lens bending (--bf is set by glass.js) */
-.has-liquid .glass,
-.has-liquid .nav-link.active {
-    -webkit-backdrop-filter: blur(0.5px) saturate(160%) brightness(1.08) var(--bf);
-    backdrop-filter: blur(0.5px) saturate(160%) brightness(1.08) var(--bf);
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--btn-glow); }
+
+/* dark outlined = secondary */
+.btn-ghost {
+    padding: 10px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-ghost:hover { border-color: rgba(167, 139, 250, 0.55); background: rgba(139, 92, 246, 0.1); }
+
+/* round pills: filters + chat options */
+.filter,
+.chat-opt {
+    padding: 11px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.filter:hover,
+.chat-opt:hover { border-color: rgba(167, 139, 250, 0.55); background: rgba(139, 92, 246, 0.08); }
+
+.filter.active,
+.chat-opt.active {
+    background: var(--btn-grad);
+    border-color: transparent;
+    box-shadow: var(--btn-glow);
+}
+
+/* keyboard focus */
+button:focus-visible {
+    outline: 2px solid rgba(196, 181, 253, 0.9);
+    outline-offset: 2px;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -111,11 +136,12 @@ body::after {
     display: grid;
     place-items: center;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     font-weight: 800;
     font-size: 1.2rem;
 }
 
-/* the pill carries the grid itself, so the buttons inside have detail to bend */
 .nav-pill {
     flex: 1;
     min-width: 0;
@@ -124,12 +150,11 @@ body::after {
     gap: 14px;
     padding: 10px 16px 10px 26px;
     border-radius: 999px;
-    border: 1px solid var(--border);
-    background:
-            linear-gradient(rgba(170, 180, 255, 0.16) 1px, transparent 1px) 0 0 / 18px 18px,
-            linear-gradient(90deg, rgba(170, 180, 255, 0.16) 1px, transparent 1px) 0 0 / 18px 18px,
-            linear-gradient(135deg, rgba(48, 44, 110, 0.92), rgba(14, 12, 34, 0.94));
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 10px 40px rgba(88, 60, 200, 0.12);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
 }
 
 .brand { font-weight: 800; font-size: 1.2rem; white-space: nowrap; }
@@ -138,14 +163,15 @@ body::after {
     display: flex;
     gap: 4px;
     margin-left: 12px;
-    padding: 5px;
+    padding: 6px;
     border-radius: 999px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .nav-link {
-    padding: 9px 20px;
-    border: 1px solid transparent;
+    padding: 10px 24px;
+    border: none;
     border-radius: 999px;
     background: transparent;
     color: var(--muted);
@@ -153,11 +179,16 @@ body::after {
     font-size: 0.95rem;
     white-space: nowrap;
     cursor: pointer;
-    transition: color 0.25s;
+    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .nav-link:hover { color: #fff; }
-.nav-link.active { color: #fff; }
+
+.nav-link.active {
+    color: #fff;
+    background: var(--btn-grad);
+    box-shadow: var(--btn-glow);
+}
 
 .search-box {
     flex: 1;
@@ -165,9 +196,9 @@ body::after {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 16px;
+    padding: 10px 18px;
     border-radius: 999px;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid var(--border);
     color: var(--muted);
 }
@@ -184,22 +215,6 @@ body::after {
 
 .search-box input::placeholder { color: var(--muted); }
 
-.btn-ghost,
-.btn-primary {
-    padding: 10px 22px;
-    border-radius: 999px;
-    color: #fff;
-    font-weight: 700;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-}
-
-.btn-primary { background: rgba(255, 255, 255, 0.10); }
-
-.btn-ghost:hover,
-.btn-primary:hover { background: rgba(255, 255, 255, 0.16); transform: translateY(-2px); }
-
 /* ---------- HERO ---------- */
 .hero {
     text-align: center;
@@ -212,7 +227,9 @@ body::after {
     display: inline-block;
     padding: 9px 26px;
     border-radius: 999px;
-    color: #fff;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    color: var(--accent);
     font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 28px;
@@ -226,7 +243,7 @@ body::after {
 }
 
 .gradient-text {
-    background: linear-gradient(90deg, #8b5cf6, #6366f1, #a78bfa);
+    background: linear-gradient(90deg, #7c5cf6, #4f7bff);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -263,7 +280,9 @@ body::after {
 .count-pill {
     padding: 8px 18px;
     border-radius: 999px;
-    color: #fff;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--muted);
     font-size: 0.9rem;
     white-space: nowrap;
 }
@@ -274,22 +293,6 @@ body::after {
 
 /* ---------- FILTERS ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
-
-.filter {
-    padding: 12px 26px;
-    border-radius: 999px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.25s, transform 0.2s;
-}
-
-.filter:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
-
-.filter.active {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.4);
-}
 
 /* ---------- CARDS ---------- */
 .grid {
@@ -305,15 +308,13 @@ body::after {
     border-radius: var(--radius);
     padding: 26px;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
     transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
     transform: translateY(-6px);
-    border-color: var(--primary);
-    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.6);
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18);
 }
 
 .card.done { border-color: var(--success); }
@@ -325,11 +326,11 @@ body::after {
     height: 62px;
     display: grid;
     place-items: center;
-    border-radius: 18px;
+    border-radius: 16px;
     background: linear-gradient(135deg, #4f6bff, #6d4dff);
     color: #fff;
     font-size: 1.6rem;
-    box-shadow: 0 8px 22px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 22px rgba(99, 102, 241, 0.35);
 }
 
 .bookmark-btn {
@@ -393,8 +394,6 @@ body::after {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
 }
 
 .stat-card p { font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; color: var(--muted); }
@@ -420,8 +419,6 @@ body::after {
     border: 1px solid var(--border);
     border-radius: 28px;
     padding: 32px 36px 40px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
 }
 
 .panel-head {
@@ -526,7 +523,10 @@ body::after {
     z-index: 70;
     width: 74px;
     height: 74px;
+    border: none;
     border-radius: 50%;
+    background: var(--btn-grad);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.45);
     color: #fff;
     font-size: 1.9rem;
     cursor: pointer;
@@ -555,7 +555,7 @@ body::after {
     align-items: center;
     padding: 14px 18px;
     font-weight: 700;
-    background: rgba(125, 140, 255, 0.2);
+    background: rgba(139, 92, 246, 0.16);
     border-bottom: 1px solid var(--border);
 }
 
@@ -564,17 +564,7 @@ body::after {
 .chat-body { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
 .chat-body p { color: var(--muted); font-size: 0.92rem; }
 
-.chat-opt {
-    padding: 10px 16px;
-    border-radius: 999px;
-    text-align: left;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.chat-opt:hover { background: rgba(255, 255, 255, 0.12); }
+.chat-opt { padding: 10px 18px; text-align: left; }
 
 .chat-reply { color: var(--text) !important; background: var(--surface); border-radius: 14px; padding: 0; }
 .chat-reply:not(:empty) { padding: 12px; }

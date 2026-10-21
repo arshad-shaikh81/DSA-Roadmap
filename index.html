@@ -4,20 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🚀 DSA Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- glass filters are generated here by glass.js -->
-<svg id="glassDefs" width="0" height="0" style="position:absolute" aria-hidden="true"></svg>
 
 <!-- LIVE PARTICLE BACKGROUND -->
 <canvas id="bgCanvas"></canvas>
 
 <!-- NAVBAR -->
 <header class="nav-wrap">
-    <div class="avatar glass">SA</div>
+    <div class="avatar">SA</div>
 
     <div class="nav-pill">
         <span class="brand">DSA Roadmap</span>
@@ -33,8 +33,8 @@
             <input id="searchInput" type="text" placeholder="Search DSA topics..." />
         </div>
 
-        <button class="btn-ghost glass">Log In</button>
-        <button class="btn-primary glass">Sign Up</button>
+        <button class="btn-ghost">Log In</button>
+        <button class="btn-primary">Sign Up</button>
     </div>
 </header>
 
@@ -42,7 +42,7 @@
 
     <!-- HERO (only on Explore) -->
     <section class="hero" id="hero">
-        <span class="hero-badge glass">AI-Powered DSA Trajectories</span>
+        <span class="hero-badge">AI-Powered DSA Trajectories</span>
         <h1>
             Navigate Your DSA Journey<br />
             <span class="gradient-text">With Absolute Precision</span>
@@ -57,14 +57,14 @@
     <section class="view" id="view-explore">
         <div class="section-head">
             <h2><i class="fa-solid fa-layer-group"></i> Available DSA Paths</h2>
-            <span class="count-pill glass" id="trackCount">0 Tracks Available</span>
+            <span class="count-pill" id="trackCount">0 Tracks Available</span>
         </div>
 
         <div class="filters" id="filters">
-            <button class="filter glass active" data-level="All">All</button>
-            <button class="filter glass" data-level="Beginner">Beginner</button>
-            <button class="filter glass" data-level="Intermediate">Intermediate</button>
-            <button class="filter glass" data-level="Advanced">Advanced</button>
+            <button class="filter active" data-level="All">All</button>
+            <button class="filter" data-level="Beginner">Beginner</button>
+            <button class="filter" data-level="Intermediate">Intermediate</button>
+            <button class="filter" data-level="Advanced">Advanced</button>
         </div>
 
         <div id="roadmapGrid" class="grid"></div>
@@ -118,7 +118,7 @@
 <!-- TOPIC MODAL -->
 <div id="modal" class="modal hidden">
     <div class="modal-content">
-        <button id="closeModal" class="close">&times;</button>
+        <button id="closeModal" class="close" aria-label="Close">&times;</button>
         <h2 id="modalTitle"></h2>
         <p id="modalDesc"></p>
 
@@ -131,20 +131,20 @@
 </div>
 
 <!-- FLOATING CHATBOT -->
-<button id="chatBtn" class="chat-btn glass" title="DSA Assistant">
+<button id="chatBtn" class="chat-btn" title="DSA Assistant">
     <i class="fa-solid fa-robot"></i>
 </button>
 
 <div id="chatPanel" class="chat-panel hidden">
     <div class="chat-head">
         <span>🤖 DSA Assistant</span>
-        <button id="chatClose" class="close-sm">&times;</button>
+        <button id="chatClose" class="close-sm" aria-label="Close">&times;</button>
     </div>
     <div class="chat-body">
         <p>Hi! 👋 Tell me your level and I'll suggest where to start.</p>
-        <button class="chat-opt glass" data-level="Beginner">I'm a Beginner</button>
-        <button class="chat-opt glass" data-level="Intermediate">I know the basics</button>
-        <button class="chat-opt glass" data-level="Advanced">I want advanced topics</button>
+        <button class="chat-opt" data-level="Beginner">I'm a Beginner</button>
+        <button class="chat-opt" data-level="Intermediate">I know the basics</button>
+        <button class="chat-opt" data-level="Advanced">I want advanced topics</button>
         <p id="chatReply" class="chat-reply"></p>
     </div>
 </div>
@@ -156,6 +156,5 @@
 <script src="data.js"></script>
 <script src="particles.js"></script>
 <script src="script.js"></script>
-<script src="glass.js"></script>
 </body>
 </html>
